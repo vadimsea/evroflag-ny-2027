@@ -9,6 +9,7 @@ import { Gifts } from "./components/Gifts";
 import { Benefits } from "./components/Benefits";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { MobileCta } from "./components/MobileCta";
 import { OrderModal, type OrderRequest } from "./components/OrderModal";
 import { Snow } from "./components/Snow";
 import { formatMoney, type Gift } from "./data";
@@ -90,6 +91,7 @@ export default function App() {
           }
         />
         <Quiz onOrder={handleOrder} />
+        <Gifts onOrder={handleOrder} />
         <Calculator
           onRequest={({ segment, qty, totalFrom, totalTo }) =>
             openRequest({
@@ -99,11 +101,11 @@ export default function App() {
             })
           }
         />
-        <Gifts onOrder={handleOrder} />
         <Benefits />
         <Contact />
       </main>
       <Footer />
+      <MobileCta />
       <OrderModal request={request} open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );

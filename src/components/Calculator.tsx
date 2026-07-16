@@ -30,7 +30,7 @@ export function Calculator({ onRequest }: Props) {
   }, [segmentId, qty]);
 
   return (
-    <StackSection id="calculator" className="section calculator" index={3}>
+    <StackSection id="calculator" className="section calculator" index={4}>
       <div className="container calculator__grid">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

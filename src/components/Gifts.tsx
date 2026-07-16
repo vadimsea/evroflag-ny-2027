@@ -8,7 +8,7 @@ type Props = {
 
 export function Gifts({ onOrder }: Props) {
   return (
-    <StackSection id="gifts" className="section gifts" index={4} pin={false}>
+    <StackSection id="gifts" className="section gifts" index={3} pin={false}>
       <div className="container">
         <motion.div
           className="section-head"
@@ -23,8 +23,11 @@ export function Gifts({ onOrder }: Props) {
             Готовые форматы — или соберём свой состав. Цены ориентировочные: зависят от тиража,
             нанесения и упаковки. Срок и точную смету подтвердит менеджер.
           </p>
+          <p className="gifts-scroll-hint">Листайте наборы →</p>
         </motion.div>
+      </div>
 
+      <div className="gifts-rail">
         <div className="gifts-grid">
           {gifts.map((gift, index) => (
             <motion.article
