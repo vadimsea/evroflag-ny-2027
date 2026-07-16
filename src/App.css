@@ -64,6 +64,50 @@
   overflow: hidden;
 }
 
+.hero-motion {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-motion__aurora {
+  position: absolute;
+  width: 70%;
+  height: 55%;
+  border-radius: 50%;
+  filter: blur(48px);
+}
+
+.hero-motion__aurora--a {
+  top: 8%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(222, 100, 100, 0.35), transparent 70%);
+}
+
+.hero-motion__aurora--b {
+  top: 22%;
+  right: 8%;
+  background: radial-gradient(circle, rgba(212, 168, 92, 0.28), transparent 70%);
+}
+
+.hero-motion__scene {
+  position: absolute;
+  right: max(-2rem, calc(50% - 560px));
+  bottom: 8%;
+  width: min(560px, 52vw);
+  height: auto;
+  opacity: 0.95;
+}
+
+.hero-motion__spark {
+  position: absolute;
+  border-radius: 50%;
+  background: #f4efe6;
+  box-shadow: 0 0 10px rgba(212, 168, 92, 0.7);
+}
+
 .hero__glow {
   position: absolute;
   inset: 0;
@@ -88,36 +132,24 @@
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 720px;
-}
-
-.hero__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.85rem;
-  margin-bottom: 1.5rem;
-}
-
-.hero__logo {
-  height: clamp(52px, 8vw, 72px);
-  width: auto;
+  max-width: 640px;
 }
 
 .hero__season {
+  margin: 0 0 1.25rem;
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold);
 }
 
 .hero__title {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 7vw, 4.6rem);
-  font-weight: 600;
-  line-height: 1.05;
+  font-family: var(--font);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
   letter-spacing: -0.03em;
 }
 
@@ -189,9 +221,9 @@
 
 .gift__name {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 600;
+  font-family: var(--font);
+  font-size: 1.55rem;
+  font-weight: 700;
   line-height: 1.15;
 }
 
@@ -273,8 +305,9 @@
 }
 
 .why__num {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-family: var(--font);
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--brand);
   line-height: 1;
   padding-top: 0.15rem;
@@ -425,8 +458,9 @@
 
 .modal-title {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.85rem;
+  font-family: var(--font);
+  font-size: 1.7rem;
+  font-weight: 700;
   line-height: 1.15;
 }
 
@@ -451,6 +485,14 @@
   }
 }
 
+@media (max-width: 900px) {
+  .hero-motion__scene {
+    right: -8%;
+    width: min(420px, 70vw);
+    opacity: 0.45;
+  }
+}
+
 @media (max-width: 640px) {
   .gifts-grid,
   .contact__row {
@@ -464,6 +506,11 @@
   .hero {
     align-items: center;
     padding-bottom: 4rem;
+  }
+
+  .hero-motion__scene {
+    opacity: 0.28;
+    bottom: 4%;
   }
 
   .gift__footer {

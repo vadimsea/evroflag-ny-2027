@@ -14,8 +14,7 @@
   --line: rgba(244, 239, 230, 0.12);
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   --radius: 4px;
-  --font-display: "Spectral", Georgia, serif;
-  --font-body: "Manrope", sans-serif;
+  --font: "Manrope", sans-serif;
   --container: min(1120px, calc(100% - 2.5rem));
   --header-h: 72px;
 }
@@ -33,7 +32,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--font-body);
+  font-family: var(--font);
   color: var(--ink);
   background:
     radial-gradient(ellipse 80% 50% at 50% -10%, rgba(222, 100, 100, 0.18), transparent 55%),
@@ -108,9 +107,9 @@ button {
 
 .section-title {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: clamp(2rem, 4.5vw, 3.25rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
