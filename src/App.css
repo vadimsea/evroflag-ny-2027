@@ -123,7 +123,10 @@
 .stack-section--active {
   position: sticky;
   top: 0;
-  height: 100svh;
+}
+
+.stack-section--flow {
+  position: relative;
 }
 
 .stack-section__panel {
@@ -137,11 +140,6 @@
 }
 
 .stack-section--desktop .stack-section__panel {
-  height: 100%;
-  max-height: 100svh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   border-radius: 18px 18px 0 0;
   box-shadow:
     0 -24px 60px rgba(0, 0, 0, 0.4),
@@ -151,13 +149,29 @@
     linear-gradient(180deg, #1c1410 0%, #120d0a 100%);
 }
 
+.stack-section--active .stack-section__panel {
+  min-height: 100svh;
+}
+
 .stack-section__content {
   box-sizing: border-box;
 }
 
 .stack-section--desktop .stack-section__content {
-  min-height: 100%;
   padding: calc(var(--header-h) + var(--deadline-h) + 1.25rem) 0 3rem;
+}
+
+.stack-section--active .stack-section__content {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stack-section--flow .stack-section__content {
+  min-height: 0;
+  display: block;
+  justify-content: initial;
 }
 
 .stack-section--desktop.why {
@@ -175,16 +189,10 @@
   min-height: 100svh;
 }
 
-.hero.stack-section--active {
-  height: 100svh;
-}
-
 .hero__panel {
   display: flex;
   align-items: flex-end;
-  height: 100%;
-  min-height: 100%;
-  max-height: 100%;
+  min-height: 100svh;
   padding: calc(var(--header-h) + var(--deadline-h) + 2rem) 0 5.5rem;
   overflow: hidden;
   background: transparent;

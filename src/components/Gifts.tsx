@@ -8,7 +8,7 @@ type Props = {
 
 export function Gifts({ onOrder }: Props) {
   return (
-    <StackSection id="gifts" className="section gifts" index={4}>
+    <StackSection id="gifts" className="section gifts" index={4} pin={false}>
       <div className="container">
         <motion.div
           className="section-head"

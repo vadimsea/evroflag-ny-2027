@@ -7,28 +7,34 @@ type Props = {
   className?: string;
   /** Stack order — higher covers lower. */
   index: number;
+  /**
+   * Sticky pin for short sections. Disable for tall catalog so page has
+   * a single scroll and content is not clipped.
+   */
+  pin?: boolean;
   children: ReactNode;
 };
 
 /**
- * Desktop sticky-stack: each panel pins at 100vh, the next slides over it
- * with a soft scale/fade. Tall content scrolls inside the panel.
+ * Desktop sticky-stack for viewport-sized sections.
+ * Tall sections use pin={false}: normal scroll, still covers previous panels.
  */
-export function StackSection({ id, className, index, children }: Props) {
+export function StackSection({ id, className, index, pin = true, children }: Props) {
   const ref = useRef<HTMLElement>(null);
   const desktop = useDesktopParallax();
+  const pinned = desktop && pin;
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], desktop ? [1, 0.92] : [1, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], desktop ? [1, 0.9, 0.6] : [1, 1, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], pinned ? [1, 0.92] : [1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], pinned ? [1, 0.9, 0.6] : [1, 1, 1]);
   const filter = useTransform(
     scrollYProgress,
     [0, 1],
-    desktop ? ["brightness(1)", "brightness(0.7)"] : ["none", "none"],
+    pinned ? ["brightness(1)", "brightness(0.7)"] : ["none", "none"],
   );
 
   return (
@@ -37,7 +43,9 @@ export function StackSection({ id, className, index, children }: Props) {
       id={id}
       className={[
         "stack-section",
-        desktop ? "stack-section--desktop stack-section--active" : "",
+        desktop ? "stack-section--desktop" : "",
+        pinned ? "stack-section--active" : "",
+        desktop && !pin ? "stack-section--flow" : "",
         className ?? "",
       ]
         .filter(Boolean)
@@ -46,7 +54,7 @@ export function StackSection({ id, className, index, children }: Props) {
     >
       <motion.div
         className="stack-section__panel"
-        style={desktop ? { scale, opacity, filter } : undefined}
+        style={pinned ? { scale, opacity, filter } : undefined}
       >
         <div className="stack-section__content">{children}</div>
       </motion.div>
