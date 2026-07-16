@@ -6,35 +6,29 @@ type Props = {
   id?: string;
   className?: string;
   /** Stack order — higher covers lower. */
-  index?: number;
-  /**
-   * Pin section while the next one covers it.
-   * Disable for tall content (e.g. catalog) so it can scroll fully.
-   */
-  pin?: boolean;
+  index: number;
   children: ReactNode;
 };
 
 /**
- * Desktop sticky-stack panels: the section pins, then the next one slides over it
- * while this one gently scales down. Mobile keeps normal document flow.
+ * Desktop sticky-stack: each panel pins at 100vh, the next slides over it
+ * with a soft scale/fade. Tall content scrolls inside the panel.
  */
-export function StackSection({ id, className, index = 1, pin = true, children }: Props) {
+export function StackSection({ id, className, index, children }: Props) {
   const ref = useRef<HTMLElement>(null);
   const desktop = useDesktopParallax();
-  const pinned = desktop && pin;
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], pinned ? [1, 0.9] : [1, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85, 1], pinned ? [1, 0.85, 0.55] : [1, 1, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], desktop ? [1, 0.92] : [1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], desktop ? [1, 0.9, 0.6] : [1, 1, 1]);
   const filter = useTransform(
     scrollYProgress,
     [0, 1],
-    pinned ? ["brightness(1)", "brightness(0.72)"] : ["none", "none"],
+    desktop ? ["brightness(1)", "brightness(0.7)"] : ["none", "none"],
   );
 
   return (
@@ -43,19 +37,18 @@ export function StackSection({ id, className, index = 1, pin = true, children }:
       id={id}
       className={[
         "stack-section",
-        desktop ? "stack-section--desktop" : "",
-        pinned ? "stack-section--active" : "",
+        desktop ? "stack-section--desktop stack-section--active" : "",
         className ?? "",
       ]
         .filter(Boolean)
         .join(" ")}
-      style={desktop ? { zIndex: index + 1 } : undefined}
+      style={desktop ? { zIndex: index } : undefined}
     >
       <motion.div
         className="stack-section__panel"
-        style={pinned ? { scale, opacity, filter } : undefined}
+        style={desktop ? { scale, opacity, filter } : undefined}
       >
-        {children}
+        <div className="stack-section__content">{children}</div>
       </motion.div>
     </section>
   );

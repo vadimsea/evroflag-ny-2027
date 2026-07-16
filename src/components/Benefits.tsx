@@ -4,7 +4,7 @@ import { StackSection } from "./StackSection";
 
 export function Benefits() {
   return (
-    <StackSection id="why" className="section why" index={2}>
+    <StackSection id="why" className="section why" index={5}>
       <div className="container why__grid">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

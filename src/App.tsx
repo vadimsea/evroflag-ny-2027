@@ -3,7 +3,6 @@ import Lenis from "lenis";
 import { Header } from "./components/Header";
 import { DeadlineBanner } from "./components/DeadlineBanner";
 import { Hero } from "./components/Hero";
-import { Showcase } from "./components/Showcase";
 import { Quiz } from "./components/Quiz";
 import { Calculator } from "./components/Calculator";
 import { Gifts } from "./components/Gifts";
@@ -90,7 +89,6 @@ export default function App() {
             })
           }
         />
-        <Showcase />
         <Quiz onOrder={handleOrder} />
         <Calculator
           onRequest={({ segment, qty, totalFrom, totalTo }) =>

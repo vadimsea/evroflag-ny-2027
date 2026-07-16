@@ -13,7 +13,7 @@ export function Contact() {
   }
 
   return (
-    <StackSection id="contact" className="section contact" index={3}>
+    <StackSection id="contact" className="section contact" index={6}>
       <div className="container contact__grid">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

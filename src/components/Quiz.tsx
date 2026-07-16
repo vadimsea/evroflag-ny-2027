@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gifts, quizOptions, type Audience, type Gift } from "../data";
+import { StackSection } from "./StackSection";
 
 type Props = {
   onOrder: (gift: Gift) => void;
@@ -15,7 +16,7 @@ export function Quiz({ onOrder }: Props) {
   }, [audience]);
 
   return (
-    <section className="section quiz" id="quiz">
+    <StackSection id="quiz" className="section quiz" index={2}>
       <div className="container">
         <motion.div
           className="section-head"
@@ -76,6 +77,6 @@ export function Quiz({ onOrder }: Props) {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </StackSection>
   );
 }

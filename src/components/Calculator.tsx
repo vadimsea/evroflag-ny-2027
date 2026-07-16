@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { calcSegments, formatMoney, getGiftById } from "../data";
+import { StackSection } from "./StackSection";
 
 type Props = {
   onRequest: (payload: { segment: string; qty: number; totalFrom: number; totalTo: number }) => void;
@@ -29,7 +30,7 @@ export function Calculator({ onRequest }: Props) {
   }, [segmentId, qty]);
 
   return (
-    <section className="section calculator" id="calculator">
+    <StackSection id="calculator" className="section calculator" index={3}>
       <div className="container calculator__grid">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -114,6 +115,6 @@ export function Calculator({ onRequest }: Props) {
           </button>
         </motion.div>
       </div>
-    </section>
+    </StackSection>
   );
 }
