@@ -66,30 +66,33 @@
   will-change: transform, opacity, filter;
 }
 
-.stack-section--active.section {
+.stack-section--desktop.section {
   padding: 0;
 }
 
-.stack-section--active .stack-section__panel {
-  min-height: 100svh;
+.stack-section--desktop .stack-section__panel {
   box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.35);
   background:
     radial-gradient(ellipse 70% 40% at 80% 0%, rgba(222, 100, 100, 0.1), transparent 55%),
     linear-gradient(180deg, #0c1a2e 0%, #07111f 100%);
 }
 
-.stack-section--active.gifts .stack-section__panel,
-.stack-section--active.why .stack-section__panel,
-.stack-section--active.contact .stack-section__panel {
+.stack-section--active .stack-section__panel {
+  min-height: 100svh;
+}
+
+.stack-section--desktop.gifts .stack-section__panel,
+.stack-section--desktop.why .stack-section__panel,
+.stack-section--desktop.contact .stack-section__panel {
   padding: clamp(4.5rem, 8vw, 7rem) 0;
 }
 
-.stack-section--active.why {
+.stack-section--desktop.why {
   border: none;
   background: none;
 }
 
-.stack-section--active.why .stack-section__panel {
+.stack-section--desktop.why .stack-section__panel {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background:
