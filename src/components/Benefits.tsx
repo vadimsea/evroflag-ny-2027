@@ -1,32 +1,12 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { benefits } from "../data";
-import { useDesktopParallax } from "../hooks/useDesktopParallax";
-import { ParallaxSection } from "./ParallaxSection";
+import { StackSection } from "./StackSection";
 
 export function Benefits() {
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-  const enabled = useDesktopParallax();
-
-  const { scrollYProgress: leftProgress } = useScroll({
-    target: leftRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: rightProgress } = useScroll({
-    target: rightRef,
-    offset: ["start end", "end start"],
-  });
-
-  const leftY = useTransform(leftProgress, [0, 1], enabled ? [36, -48] : [0, 0]);
-  const rightY = useTransform(rightProgress, [0, 1], enabled ? [64, -28] : [0, 0]);
-
   return (
-    <ParallaxSection id="why" className="section why" distance={32}>
+    <StackSection id="why" className="section why" index={2}>
       <div className="container why__grid">
         <motion.div
-          ref={leftRef}
-          style={{ y: leftY }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
@@ -40,7 +20,7 @@ export function Benefits() {
           </p>
         </motion.div>
 
-        <motion.div className="why__list" ref={rightRef} style={{ y: rightY }}>
+        <div className="why__list">
           {benefits.map((item, index) => (
             <motion.div
               key={item.title}
@@ -57,8 +37,8 @@ export function Benefits() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
-    </ParallaxSection>
+    </StackSection>
   );
 }

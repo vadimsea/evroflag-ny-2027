@@ -1,27 +1,11 @@
-import { useRef, useState, type FormEvent } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
 import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 import { contacts, gifts } from "../data";
-import { useDesktopParallax } from "../hooks/useDesktopParallax";
-import { ParallaxSection } from "./ParallaxSection";
+import { StackSection } from "./StackSection";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
-  const infoRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
-  const enabled = useDesktopParallax();
-
-  const { scrollYProgress: infoProgress } = useScroll({
-    target: infoRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: formProgress } = useScroll({
-    target: formRef,
-    offset: ["start end", "end start"],
-  });
-
-  const infoY = useTransform(infoProgress, [0, 1], enabled ? [28, -40] : [0, 0]);
-  const formY = useTransform(formProgress, [0, 1], enabled ? [56, -24] : [0, 0]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,11 +13,9 @@ export function Contact() {
   }
 
   return (
-    <ParallaxSection id="contact" className="section contact" distance={36}>
+    <StackSection id="contact" className="section contact" index={3}>
       <div className="container contact__grid">
         <motion.div
-          ref={infoRef}
-          style={{ y: infoY }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -78,9 +60,7 @@ export function Contact() {
         </motion.div>
 
         <motion.div
-          ref={formRef}
           className="contact__form-wrap"
-          style={{ y: formY }}
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
@@ -154,6 +134,6 @@ export function Contact() {
           )}
         </motion.div>
       </div>
-    </ParallaxSection>
+    </StackSection>
   );
 }

@@ -58,7 +58,7 @@ export default function App() {
     <>
       <Snow />
       <Header />
-      <main>
+      <main className="site-main">
         <Hero />
         <Gifts onOrder={handleOrder} />
         <Benefits />
