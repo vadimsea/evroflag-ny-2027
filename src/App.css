@@ -55,6 +55,15 @@
   white-space: nowrap;
 }
 
+.parallax-section {
+  position: relative;
+  overflow: clip;
+}
+
+.parallax-section__inner {
+  will-change: transform;
+}
+
 .hero {
   position: relative;
   min-height: 100svh;
@@ -64,10 +73,17 @@
   overflow: hidden;
 }
 
-.hero-motion {
+.hero__scene-layer {
   position: absolute;
   inset: 0;
   z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-motion {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
   overflow: hidden;
 }

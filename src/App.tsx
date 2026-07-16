@@ -16,8 +16,14 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
+    const desktop = window.matchMedia(
+      "(min-width: 961px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+
+    if (!desktop.matches) return;
+
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.15,
       smoothWheel: true,
     });
 
@@ -28,7 +34,16 @@ export default function App() {
     };
     frame = requestAnimationFrame(raf);
 
+    const onChange = () => {
+      if (!desktop.matches) {
+        cancelAnimationFrame(frame);
+        lenis.destroy();
+      }
+    };
+    desktop.addEventListener("change", onChange);
+
     return () => {
+      desktop.removeEventListener("change", onChange);
       cancelAnimationFrame(frame);
       lenis.destroy();
     };

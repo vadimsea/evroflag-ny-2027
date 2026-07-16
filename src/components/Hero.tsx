@@ -1,14 +1,66 @@
-import { motion } from "framer-motion";
+import { useRef, type PointerEvent } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { useDesktopParallax } from "../hooks/useDesktopParallax";
 import { HeroMotion } from "./HeroMotion";
 
 export function Hero() {
-  return (
-    <section className="hero" id="top" aria-label="Главный экран">
-      <div className="hero__glow" aria-hidden="true" />
-      <div className="hero__forest" aria-hidden="true" />
-      <HeroMotion />
+  const sectionRef = useRef<HTMLElement>(null);
+  const enabled = useDesktopParallax();
 
-      <div className="container hero__content">
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const glowY = useTransform(scrollYProgress, [0, 1], enabled ? [0, 120] : [0, 0]);
+  const sceneY = useTransform(scrollYProgress, [0, 1], enabled ? [0, 180] : [0, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], enabled ? [0, 70] : [0, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], enabled ? [1, 0.35] : [1, 1]);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 18, mass: 0.4 });
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 18, mass: 0.4 });
+  const sceneTransform = useMotionTemplate`translate3d(${springX}px, calc(${sceneY}px + ${springY}px), 0)`;
+
+  function handlePointerMove(event: PointerEvent<HTMLElement>) {
+    if (!enabled) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const nx = (event.clientX - rect.left) / rect.width - 0.5;
+    const ny = (event.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(nx * 28);
+    mouseY.set(ny * 18);
+  }
+
+  function handlePointerLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
+  return (
+    <section
+      ref={sectionRef}
+      className="hero"
+      id="top"
+      aria-label="Главный экран"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <motion.div className="hero__glow" aria-hidden="true" style={{ y: glowY }} />
+      <div className="hero__forest" aria-hidden="true" />
+
+      <motion.div className="hero__scene-layer" style={{ transform: sceneTransform }} aria-hidden="true">
+        <HeroMotion />
+      </motion.div>
+
+      <motion.div className="container hero__content" style={{ y: contentY, opacity: contentOpacity }}>
         <motion.p
           className="hero__season"
           initial={{ opacity: 0, y: 20 }}
@@ -51,7 +103,7 @@ export function Hero() {
             Получить предложение
           </a>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
