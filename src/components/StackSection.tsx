@@ -6,7 +6,7 @@ type Props = {
   id?: string;
   className?: string;
   /** Stack order — higher covers lower. */
-  index: number;
+  index?: number;
   /**
    * Pin section while the next one covers it.
    * Disable for tall content (e.g. catalog) so it can scroll fully.
@@ -19,7 +19,7 @@ type Props = {
  * Desktop sticky-stack panels: the section pins, then the next one slides over it
  * while this one gently scales down. Mobile keeps normal document flow.
  */
-export function StackSection({ id, className, index, pin = true, children }: Props) {
+export function StackSection({ id, className, index = 1, pin = true, children }: Props) {
   const ref = useRef<HTMLElement>(null);
   const desktop = useDesktopParallax();
   const pinned = desktop && pin;

@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import { Header } from "./components/Header";
+import { DeadlineBanner } from "./components/DeadlineBanner";
 import { Hero } from "./components/Hero";
+import { Showcase } from "./components/Showcase";
+import { Quiz } from "./components/Quiz";
+import { Calculator } from "./components/Calculator";
 import { Gifts } from "./components/Gifts";
 import { Benefits } from "./components/Benefits";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
-import { OrderModal } from "./components/OrderModal";
+import { OrderModal, type OrderRequest } from "./components/OrderModal";
 import { Snow } from "./components/Snow";
-import type { Gift } from "./data";
+import { formatMoney, type Gift } from "./data";
 import "./App.css";
 
 export default function App() {
-  const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
+  const [request, setRequest] = useState<OrderRequest | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -49,27 +53,60 @@ export default function App() {
     };
   }, []);
 
-  function handleOrder(gift: Gift) {
-    setSelectedGift(gift);
+  function openRequest(next: OrderRequest) {
+    setRequest(next);
     setModalOpen(true);
+  }
+
+  function handleOrder(gift: Gift) {
+    openRequest({
+      title: `Заказать «${gift.name}»`,
+      gift,
+      defaultQty: gift.minQty,
+    });
   }
 
   return (
     <>
       <Snow />
       <Header />
+      <DeadlineBanner />
       <main className="site-main">
-        <Hero />
+        <Hero
+          onUrgent={() =>
+            openRequest({
+              title: "Срочный тираж",
+              presetMessage:
+                "Нужен срочный тираж к Новому году. Город доставки, желаемая дата отгрузки:",
+              defaultQty: 100,
+            })
+          }
+          onCustom={() =>
+            openRequest({
+              title: "Нужен свой состав",
+              presetMessage:
+                "Хотим собрать свой состав набора. Бюджет на 1 шт., пожелания к позициям:",
+              defaultQty: 50,
+            })
+          }
+        />
+        <Showcase />
+        <Quiz onOrder={handleOrder} />
+        <Calculator
+          onRequest={({ segment, qty, totalFrom, totalTo }) =>
+            openRequest({
+              title: "Точный расчёт по калькулятору",
+              defaultQty: qty,
+              presetMessage: `Сегмент: ${segment}. Тираж: ${qty} шт. Ориентир бюджета: ${formatMoney(totalFrom)} – ${formatMoney(totalTo)}.`,
+            })
+          }
+        />
         <Gifts onOrder={handleOrder} />
         <Benefits />
         <Contact />
       </main>
       <Footer />
-      <OrderModal
-        gift={selectedGift}
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-      />
+      <OrderModal request={request} open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

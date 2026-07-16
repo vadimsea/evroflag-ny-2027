@@ -10,7 +10,12 @@ import {
 import { useDesktopParallax } from "../hooks/useDesktopParallax";
 import { HeroMotion } from "./HeroMotion";
 
-export function Hero() {
+type Props = {
+  onUrgent: () => void;
+  onCustom: () => void;
+};
+
+export function Hero({ onUrgent, onCustom }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const enabled = useDesktopParallax();
 
@@ -65,6 +70,7 @@ export function Hero() {
       >
         <div className="hero__glow" aria-hidden="true" />
         <div className="hero__forest" aria-hidden="true" />
+        <div className="hero__paper" aria-hidden="true" />
 
         <motion.div
           className="hero__scene-layer"
@@ -81,7 +87,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            Новогодние наборы · сезон 2027
+            Еврофлаг · Новогодняя коллекция 2027
           </motion.p>
 
           <motion.h1
@@ -90,7 +96,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            Корпоративные подарки, которые не стыдно дарить
+            Брендированные наборы к Новому году — от расчёта до отгрузки по РФ
           </motion.h1>
 
           <motion.p
@@ -99,9 +105,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
-            Соберём наборы с вашим логотипом под бюджет и тираж — от сувениров для всей
-            команды до премиум-комплектов для ключевых клиентов. Сделаем вовремя и отправим
-            по России.
+            Когда сроки жмут, а логотип должен быть идеальным: соберём состав под бюджет,
+            согласуем макет и отправим тираж вовремя — сотрудникам, клиентам или VIP.
           </motion.p>
 
           <motion.div
@@ -113,9 +118,24 @@ export function Hero() {
             <a className="btn btn-primary" href="#gifts">
               Смотреть наборы
             </a>
-            <a className="btn btn-ghost" href="#contact">
-              Получить предложение
+            <a className="btn btn-gold" href="#quiz">
+              Подобрать за 1 минуту
             </a>
+          </motion.div>
+
+          <motion.div
+            className="hero__alt-cta"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+          >
+            <button type="button" onClick={onUrgent}>
+              Срочный тираж
+            </button>
+            <span aria-hidden="true">·</span>
+            <button type="button" onClick={onCustom}>
+              Нужен свой состав
+            </button>
           </motion.div>
         </div>
       </motion.div>

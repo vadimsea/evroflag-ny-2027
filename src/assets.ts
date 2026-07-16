@@ -1,1 +1,5 @@
 export const logoUrl = `${import.meta.env.BASE_URL}logo-evroflag.webp`;
+
+export function imageUrl(name: string) {
+  return `${import.meta.env.BASE_URL}images/${name}`;
+}

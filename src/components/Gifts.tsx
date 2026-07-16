@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Gift as GiftIcon } from "lucide-react";
 import { gifts, type Gift } from "../data";
 import { StackSection } from "./StackSection";
 
@@ -21,8 +20,8 @@ export function Gifts({ onOrder }: Props) {
           <p className="section-label">Каталог</p>
           <h2 className="section-title">Новогодние наборы под ваш бренд</h2>
           <p className="section-lead">
-            Выберите готовый формат или соберите свой. Пока вместо фото — плейсхолдеры; состав и
-            цены уточнит менеджер под ваш тираж.
+            Готовые форматы — или соберём свой состав. Цены ориентировочные: зависят от тиража,
+            нанесения и упаковки. Срок и точную смету подтвердит менеджер.
           </p>
         </motion.div>
 
@@ -36,11 +35,8 @@ export function Gifts({ onOrder }: Props) {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
             >
-              <div className="gift__media" aria-hidden="true">
-                <div className="gift__placeholder">
-                  <GiftIcon size={36} strokeWidth={1.4} />
-                  <span>Фото набора</span>
-                </div>
+              <div className="gift__media">
+                <img src={gift.image} alt={gift.name} loading="lazy" />
               </div>
               <div className="gift__body">
                 <p className="gift__tag">{gift.tagline}</p>
@@ -51,6 +47,9 @@ export function Gifts({ onOrder }: Props) {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+                <p className="gift__meta">
+                  от {gift.minQty} шт. · {gift.leadDays}
+                </p>
                 <div className="gift__footer">
                   <span className="gift__price">{gift.priceLabel}</span>
                   <button type="button" className="btn btn-primary" onClick={() => onOrder(gift)}>

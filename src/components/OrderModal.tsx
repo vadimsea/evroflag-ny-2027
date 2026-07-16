@@ -3,13 +3,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import type { Gift } from "../data";
 
+export type OrderRequest = {
+  title: string;
+  presetMessage?: string;
+  defaultQty?: number;
+  gift?: Gift | null;
+};
+
 type Props = {
-  gift: Gift | null;
+  request: OrderRequest | null;
   open: boolean;
   onClose: () => void;
 };
 
-export function OrderModal({ gift, open, onClose }: Props) {
+export function OrderModal({ request, open, onClose }: Props) {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
 
   useEffect(() => {
@@ -36,7 +43,7 @@ export function OrderModal({ gift, open, onClose }: Props) {
 
   return (
     <AnimatePresence>
-      {open && gift && (
+      {open && request && (
         <motion.div
           className="modal-root"
           initial={{ opacity: 0 }}
@@ -62,14 +69,14 @@ export function OrderModal({ gift, open, onClose }: Props) {
               <>
                 <p className="section-label">Заявка менеджеру</p>
                 <h2 id="order-title" className="modal-title">
-                  Заказать «{gift.name}»
+                  {request.title}
                 </h2>
                 <p className="modal-lead">
-                  Укажите контакты — менеджер Еврофлаг свяжется, уточнит тираж и подготовит
-                  коммерческое предложение.
+                  Укажите контакты — менеджер Еврофлаг свяжется, уточнит детали и подготовит
+                  коммерческое предложение. Ответ в рабочее время обычно за 30–60 минут.
                 </p>
-                <form className="modal-form" onSubmit={handleSubmit}>
-                  <input type="hidden" name="gift" value={gift.name} />
+                <form className="modal-form" onSubmit={handleSubmit} key={request.title}>
+                  <input type="hidden" name="request" value={request.title} />
                   <div className="field">
                     <label htmlFor="order-name">Имя</label>
                     <input id="order-name" name="name" required placeholder="Как к вам обращаться" />
@@ -96,14 +103,29 @@ export function OrderModal({ gift, open, onClose }: Props) {
                   </div>
                   <div className="field">
                     <label htmlFor="order-qty">Количество наборов</label>
-                    <input id="order-qty" name="qty" type="number" min={1} defaultValue={10} />
+                    <input
+                      id="order-qty"
+                      name="qty"
+                      type="number"
+                      min={1}
+                      defaultValue={request.defaultQty ?? request.gift?.minQty ?? 50}
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="order-deadline">Дедлайн</label>
+                    <input
+                      id="order-deadline"
+                      name="deadline"
+                      placeholder="Например, отгрузка к 20 декабря"
+                    />
                   </div>
                   <div className="field">
                     <label htmlFor="order-msg">Комментарий</label>
                     <textarea
                       id="order-msg"
                       name="message"
-                      placeholder="Логотип, сроки, город доставки…"
+                      defaultValue={request.presetMessage ?? ""}
+                      placeholder="Логотип, город доставки, особые пожелания…"
                     />
                   </div>
                   <button type="submit" className="btn btn-primary">
@@ -116,8 +138,8 @@ export function OrderModal({ gift, open, onClose }: Props) {
                 <p className="section-label">Готово</p>
                 <h2 className="modal-title">Заявка отправлена</h2>
                 <p className="modal-lead">
-                  Спасибо! Мы получили запрос на набор «{gift.name}». Менеджер свяжется с вами в
-                  рабочее время.
+                  Спасибо! Мы получили запрос «{request.title}». Менеджер свяжется с вами в рабочее
+                  время.
                 </p>
                 <button type="button" className="btn btn-ghost" onClick={onClose}>
                   Закрыть

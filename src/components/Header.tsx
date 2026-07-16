@@ -4,8 +4,9 @@ import { logoUrl } from "../assets";
 import { contacts } from "../data";
 
 const links = [
+  { href: "#quiz", label: "Подбор" },
   { href: "#gifts", label: "Наборы" },
-  { href: "#why", label: "Почему мы" },
+  { href: "#calculator", label: "Расчёт" },
   { href: "#contact", label: "Контакты" },
 ];
 

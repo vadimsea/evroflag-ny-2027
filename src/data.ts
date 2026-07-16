@@ -1,3 +1,7 @@
+import { imageUrl } from "./assets";
+
+export type Audience = "employees" | "clients" | "vip" | "mass";
+
 export type Gift = {
   id: string;
   name: string;
@@ -5,6 +9,18 @@ export type Gift = {
   description: string;
   includes: string[];
   priceLabel: string;
+  priceFrom: number;
+  priceTo: number;
+  minQty: number;
+  leadDays: string;
+  audiences: Audience[];
+  image: string;
+};
+
+export const deadline = {
+  shipWindow: "20–25 декабря",
+  lockBy: "15 ноября",
+  minQtyHint: "от 50 шт.",
 };
 
 export const gifts: Gift[] = [
@@ -13,56 +29,107 @@ export const gifts: Gift[] = [
     name: "Северный свет",
     tagline: "Тёплый старт сезона",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Набор для клиентов, которым важен уют и узнаваемый бренд.",
+      "Уютный набор для сотрудников и партнёров: вещи, которые носят, а не оставляют в шкафу. Логотип на текстиле — аккуратно и в ваших цветах.",
     includes: ["Шарф с логотипом", "Носки брендированные", "Открытка"],
     priceLabel: "от 2 900 ₽",
+    priceFrom: 2900,
+    priceTo: 3900,
+    minQty: 50,
+    leadDays: "12–18 раб. дней",
+    audiences: ["employees", "clients"],
+    image: imageUrl("gift-1.jpg"),
   },
   {
     id: "corporate-cozy",
     name: "Корпоративный уют",
     tagline: "Для команды и партнёров",
     description:
-      "Sed do eiusmod tempor incididunt ut labore. Практичные текстильные позиции с вашим логотипом в праздничной упаковке.",
+      "Практичный комплект «на каждый день»: плед или худи, кружка и фирменная упаковка. Хорошо заходит на корпоратив и клиентскую рассылку.",
     includes: ["Плед / худи", "Термокружка", "Фирменная упаковка"],
     priceLabel: "от 4 500 ₽",
+    priceFrom: 4500,
+    priceTo: 6200,
+    minQty: 30,
+    leadDays: "14–20 раб. дней",
+    audiences: ["employees", "clients"],
+    image: imageUrl("gift-2.jpg"),
   },
   {
     id: "business-fest",
     name: "Деловой праздник",
     tagline: "Лаконично и статусно",
     description:
-      "Ut enim ad minim veniam, quis nostrud exercitation. Аккуратный набор аксессуаров для деловых поздравлений.",
+      "Сдержанный набор для деловых поздравлений: ничего лишнего, всё с логотипом, удобно дарить клиентам и подрядчикам.",
     includes: ["Блокнот", "Ручка с логотипом", "Ланъярд / шопер"],
     priceLabel: "от 3 200 ₽",
+    priceFrom: 3200,
+    priceTo: 4500,
+    minQty: 50,
+    leadDays: "10–16 раб. дней",
+    audiences: ["clients", "employees"],
+    image: imageUrl("gift-3.jpg"),
   },
   {
     id: "team-of-year",
     name: "Команда года",
     tagline: "Единый стиль для всех",
     description:
-      "Duis aute irure dolor in reprehenderit. Корпоративная одежда и аксессуары, которые соберут сотрудников в одном визуальном коде.",
+      "Одежда и аксессуары в одном визуальном коде — чтобы команда выглядела цельно на мероприятиях и в офисе.",
     includes: ["Худи или поло", "Кепка / шапка", "Бейдж-лента"],
     priceLabel: "от 5 800 ₽",
+    priceFrom: 5800,
+    priceTo: 7900,
+    minQty: 20,
+    leadDays: "16–22 раб. дня",
+    audiences: ["employees"],
+    image: imageUrl("gift-4.jpg"),
   },
   {
     id: "premium-winter",
     name: "Премиум зима",
     tagline: "VIP-поздравление",
     description:
-      "Excepteur sint occaecat cupidatat non proident. Расширенный премиальный комплект для ключевых клиентов и руководства.",
+      "Расширенный комплект для ключевых клиентов и руководства: премиум-текстиль, коробка и персональное письмо.",
     includes: ["Премиум текстиль", "Подарочная коробка", "Персональное письмо"],
     priceLabel: "от 9 900 ₽",
+    priceFrom: 9900,
+    priceTo: 14900,
+    minQty: 10,
+    leadDays: "18–25 раб. дней",
+    audiences: ["vip", "clients"],
+    image: imageUrl("unbox.jpg"),
   },
   {
     id: "mini-fest",
     name: "Мини-праздник",
     tagline: "Массовый тираж",
     description:
-      "Sunt in culpa qui officia deserunt mollit. Компактный и бюджетный вариант для больших списков получателей.",
+      "Компактный и бюджетный формат, когда список получателей большой. Быстро собирается, легко масштабируется.",
     includes: ["Сувенир с логотипом", "Открытка", "Крафт-упаковка"],
     priceLabel: "от 1 490 ₽",
+    priceFrom: 1490,
+    priceTo: 2200,
+    minQty: 100,
+    leadDays: "8–14 раб. дней",
+    audiences: ["mass", "employees", "clients"],
+    image: imageUrl("tag.jpg"),
   },
 ];
+
+export const quizOptions: { id: Audience; label: string; hint: string }[] = [
+  { id: "employees", label: "Сотрудникам", hint: "Команда, филиалы, корпоратив" },
+  { id: "clients", label: "Клиентам", hint: "Партнёры и деловые поздравления" },
+  { id: "vip", label: "VIP", hint: "Ключевые клиенты и руководство" },
+  { id: "mass", label: "Массовая рассылка", hint: "Большой тираж, единый бюджет" },
+];
+
+export const calcSegments = [
+  { id: "mass", label: "Массовый", giftId: "mini-fest" },
+  { id: "standard", label: "Стандарт", giftId: "northern-light" },
+  { id: "business", label: "Деловой", giftId: "business-fest" },
+  { id: "team", label: "Команда", giftId: "team-of-year" },
+  { id: "premium", label: "Премиум", giftId: "premium-winter" },
+] as const;
 
 export const contacts = {
   phone: "+7 (499) 212-01-32",
@@ -90,3 +157,11 @@ export const benefits = [
     text: "Соберём партии под ваши сроки и отправим новогодние наборы в нужные города.",
   },
 ];
+
+export function formatMoney(value: number) {
+  return new Intl.NumberFormat("ru-RU").format(Math.round(value)) + " ₽";
+}
+
+export function getGiftById(id: string) {
+  return gifts.find((gift) => gift.id === id);
+}
