@@ -81,18 +81,18 @@ body::after {
 }
 
 .snow {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 25;
+  z-index: 3;
   pointer-events: none;
   overflow: hidden;
 }
 
 .snow__flake {
   position: absolute;
-  top: -2.5rem;
-  color: rgba(255, 255, 255, 0.92);
-  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
+  top: -1.5rem;
+  color: rgba(255, 255, 255, 0.88);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
   animation-name: snowfall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -108,15 +108,15 @@ body::after {
 
 @keyframes snowfall {
   0% {
-    transform: translate3d(0, -6vh, 0) rotate(0deg);
+    transform: translate3d(0, -4%, 0) rotate(0deg);
   }
   100% {
-    transform: translate3d(var(--snow-drift, 16px), 112vh, 0) rotate(var(--snow-spin, 40deg));
+    transform: translate3d(var(--snow-drift, 14px), 108%, 0) rotate(var(--snow-spin, 36deg));
   }
 }
 
 @media (max-width: 960px) {
-  .snow__flake:nth-child(n + 20) {
+  .snow__flake:nth-child(n + 16) {
     display: none;
   }
 }

@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { useDesktopParallax } from "../hooks/useDesktopParallax";
 import { HeroMotion } from "./HeroMotion";
+import { Snow } from "./Snow";
 
 type Props = {
   onUrgent: () => void;
@@ -71,6 +72,7 @@ export function Hero({ onUrgent, onCustom }: Props) {
         <div className="hero__glow" aria-hidden="true" />
         <div className="hero__forest" aria-hidden="true" />
         <div className="hero__paper" aria-hidden="true" />
+        <Snow />
 
         <motion.div
           className="hero__scene-layer"

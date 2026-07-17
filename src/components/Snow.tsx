@@ -70,10 +70,10 @@ function createFlakes(count: number): Flake[] {
     return {
       id,
       left: `${(id * 37) % 100}%`,
-      size: 12 + ((id * 17) % 16),
+      size: 8 + ((id * 17) % 8),
       duration: `${12 + ((id * 13) % 10)}s`,
       delay: `${-((id * 11) % 14)}s`,
-      opacity: 0.35 + ((id * 7) % 30) / 100,
+      opacity: 0.28 + ((id * 7) % 22) / 100,
       drift: `${direction * (16 + (id % 22))}px`,
       spin: `${direction * (40 + (id % 50))}deg`,
       variant: (id % 3) as 0 | 1 | 2,
@@ -82,7 +82,7 @@ function createFlakes(count: number): Flake[] {
 }
 
 export function Snow() {
-  const flakes = useMemo(() => createFlakes(34), []);
+  const flakes = useMemo(() => createFlakes(28), []);
 
   return (
     <div className="snow" aria-hidden="true">

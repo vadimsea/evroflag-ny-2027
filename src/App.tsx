@@ -11,7 +11,6 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MobileCta } from "./components/MobileCta";
 import { OrderModal, type OrderRequest } from "./components/OrderModal";
-import { Snow } from "./components/Snow";
 import { formatMoney, type Gift } from "./data";
 import "./App.css";
 
@@ -68,7 +67,6 @@ export default function App() {
 
   return (
     <>
-      <Snow />
       <Header />
       <DeadlineBanner />
       <main className="site-main">
