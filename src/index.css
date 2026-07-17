@@ -90,27 +90,29 @@ body::after {
 
 .snow__flake {
   position: absolute;
-  top: -12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+  top: -2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  font-family: "Segoe UI Symbol", "Apple Color Emoji", "Noto Sans Symbols", sans-serif;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
   animation-name: snowfall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   will-change: transform;
+  user-select: none;
 }
 
 @keyframes snowfall {
   0% {
-    transform: translate3d(0, -5vh, 0);
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
   }
   100% {
-    transform: translate3d(var(--snow-drift, 12px), 105vh, 0);
+    transform: translate3d(var(--snow-drift, 16px), 110vh, 0) rotate(var(--snow-spin, 24deg));
   }
 }
 
 @media (max-width: 960px) {
-  .snow__flake:nth-child(n + 26) {
+  .snow__flake:nth-child(n + 22) {
     display: none;
   }
 }
