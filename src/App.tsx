@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { Header } from "./components/Header";
 import { DeadlineBanner } from "./components/DeadlineBanner";
@@ -19,6 +19,8 @@ export default function App() {
   const [request, setRequest] = useState<OrderRequest | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [detailsGift, setDetailsGift] = useState<Gift | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const overlayOpen = modalOpen || Boolean(detailsGift);
 
   useEffect(() => {
     const desktop = window.matchMedia(
@@ -30,7 +32,10 @@ export default function App() {
     const lenis = new Lenis({
       duration: 1.15,
       smoothWheel: true,
+      prevent: (node) =>
+        node.closest(".modal-root, [data-lenis-prevent]") !== null,
     });
+    lenisRef.current = lenis;
 
     let frame = 0;
     const raf = (time: number) => {
@@ -43,6 +48,7 @@ export default function App() {
       if (!desktop.matches) {
         cancelAnimationFrame(frame);
         lenis.destroy();
+        lenisRef.current = null;
       }
     };
     desktop.addEventListener("change", onChange);
@@ -51,8 +57,16 @@ export default function App() {
       desktop.removeEventListener("change", onChange);
       cancelAnimationFrame(frame);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+    if (overlayOpen) lenis.stop();
+    else lenis.start();
+  }, [overlayOpen]);
 
   function openRequest(next: OrderRequest) {
     setRequest(next);

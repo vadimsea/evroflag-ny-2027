@@ -531,11 +531,28 @@
   flex-direction: column;
   width: min(480px, calc(100vw - 2rem));
   max-height: min(86vh, 720px);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: linear-gradient(180deg, #3a4d6b, #24344f);
   box-shadow: var(--shadow);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 181, 106, 0.4) transparent;
+}
+
+.gift-details::-webkit-scrollbar {
+  width: 5px;
+}
+
+.gift-details::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gift-details::-webkit-scrollbar-thumb {
+  background: rgba(224, 181, 106, 0.4);
+  border-radius: 99px;
 }
 
 .gift-details__close {
@@ -577,25 +594,7 @@
 
 .gift-details__content {
   flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
   padding: 1.25rem 1.5rem 1rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(224, 181, 106, 0.4) transparent;
-}
-
-.gift-details__content::-webkit-scrollbar {
-  width: 5px;
-}
-
-.gift-details__content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.gift-details__content::-webkit-scrollbar-thumb {
-  background: rgba(224, 181, 106, 0.4);
-  border-radius: 99px;
 }
 
 .gift-details__tag {
@@ -677,6 +676,8 @@
 
 .gift-details__footer {
   flex: 0 0 auto;
+  position: sticky;
+  bottom: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -684,7 +685,7 @@
   gap: 0.85rem;
   padding: 0.95rem 1.5rem 1.2rem;
   border-top: 1px solid var(--line);
-  background: rgba(18, 28, 46, 0.55);
+  background: linear-gradient(180deg, rgba(36, 52, 79, 0.92), #24344f);
 }
 
 .gift-details__price {
@@ -998,6 +999,7 @@
   width: min(480px, 100%);
   max-height: min(90vh, 860px);
   overflow: auto;
+  overscroll-behavior: contain;
   padding: 1.75rem 1.5rem 1.5rem;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, #3a4d6b, #24344f);

@@ -56,6 +56,7 @@ export function OrderModal({ request, open, onClose }: Props) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="order-title"
+            data-lenis-prevent
             initial={{ opacity: 0, y: 28, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
