@@ -73,7 +73,14 @@ body::after {
 
 #root {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+#tsparticles {
+  position: fixed !important;
+  inset: 0;
+  z-index: 1 !important;
+  pointer-events: none;
 }
 
 img {
@@ -236,11 +243,4 @@ button {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
-}
-
-#tsparticles {
-  position: fixed !important;
-  inset: 0;
-  z-index: 0 !important;
-  pointer-events: none;
 }
