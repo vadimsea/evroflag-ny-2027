@@ -90,9 +90,9 @@ body::after {
 
 .snow__flake {
   position: absolute;
-  top: -1.5rem;
-  color: rgba(255, 255, 255, 0.88);
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.25));
+  top: -2rem;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   animation-name: snowfall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -108,10 +108,10 @@ body::after {
 
 @keyframes snowfall {
   0% {
-    transform: translate3d(0, -4%, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
   100% {
-    transform: translate3d(var(--snow-drift, 14px), 108%, 0) rotate(var(--snow-spin, 36deg));
+    transform: translate3d(var(--snow-drift, 14px), 100vh, 0) rotate(var(--snow-spin, 36deg));
   }
 }
 
