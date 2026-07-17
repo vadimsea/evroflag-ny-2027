@@ -241,6 +241,6 @@ button {
 #tsparticles {
   position: fixed !important;
   inset: 0;
-  z-index: 2 !important;
+  z-index: 0 !important;
   pointer-events: none;
 }

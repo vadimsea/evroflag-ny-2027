@@ -8,11 +8,11 @@ async function initParticles(engine: Engine) {
 }
 
 export function Snow() {
-  const [particleCount, setParticleCount] = useState(110);
+  const [particleCount, setParticleCount] = useState(36);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 960px)");
-    const update = () => setParticleCount(mq.matches ? 45 : 110);
+    const update = () => setParticleCount(mq.matches ? 16 : 36);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
@@ -20,57 +20,28 @@ export function Snow() {
 
   const options = useMemo<ISourceOptions>(
     () => ({
-      fullScreen: { enable: true, zIndex: 2 },
+      fullScreen: { enable: true, zIndex: 0 },
       background: { color: { value: "transparent" } },
-      fpsLimit: 60,
+      fpsLimit: 45,
       particles: {
         number: {
           value: particleCount,
-          density: { enable: true, width: 1100, height: 800 },
+          density: { enable: true, width: 1200, height: 800 },
         },
-        color: { value: ["#ffffff", "#eef6ff", "#f0c56e", "#ffe8a8"] },
+        color: { value: ["#ffffff", "#e8eef8"] },
         opacity: {
-          value: { min: 0.25, max: 0.85 },
-          animation: {
-            enable: true,
-            speed: 0.6,
-            sync: false,
-          },
+          value: { min: 0.08, max: 0.22 },
         },
-        size: { value: { min: 1.2, max: 5 } },
+        size: { value: { min: 0.8, max: 2.2 } },
         move: {
           enable: true,
           direction: "bottom",
-          speed: { min: 0.5, max: 2.2 },
+          speed: { min: 0.25, max: 0.9 },
           straight: false,
-          drift: { min: -0.3, max: 0.3 },
+          drift: { min: -0.15, max: 0.15 },
           outModes: { default: "out" },
         },
-        rotate: {
-          value: { min: 0, max: 360 },
-          direction: "random",
-          animation: { enable: true, speed: 4 },
-        },
-        shape: {
-          type: ["circle", "star"],
-          options: {
-            star: {
-              sides: 6,
-            },
-          },
-        },
-        twinkle: {
-          particles: {
-            enable: true,
-            frequency: 0.08,
-            opacity: 1,
-          },
-        },
-        shadow: {
-          enable: true,
-          color: "#ffffff",
-          blur: 4,
-        },
+        shape: { type: "circle" },
       },
       detectRetina: true,
     }),
