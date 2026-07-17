@@ -559,7 +559,7 @@
 
 .gift-details__media {
   flex: 0 0 auto;
-  width: min(100%, 300px);
+  width: min(100%, 320px);
   aspect-ratio: 1 / 1;
   margin: 1.15rem auto 0;
   background: rgba(18, 28, 46, 0.45);
@@ -1246,8 +1246,13 @@
   }
 
   .gift-details__media {
-    width: min(52vw, 200px);
-    margin-top: 1.35rem;
+    width: min(100%, 42svh, 280px);
+    margin-top: 0.85rem;
+  }
+
+  .gift-details__close {
+    top: 0.65rem;
+    right: 0.65rem;
   }
 
   .gift-details__content {
