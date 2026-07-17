@@ -1099,42 +1099,26 @@
   }
 
   .gifts-scroll-hint {
-    display: block;
-    margin: 1rem 0 0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--gold);
+    display: none;
   }
 
   .gifts-rail {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.5rem;
-  }
-
-  .gifts-rail::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .gifts-rail::-webkit-scrollbar-thumb {
-    background: rgba(224, 181, 106, 0.45);
-    border-radius: 99px;
+    overflow: visible;
   }
 
   .gifts-grid {
-    display: flex;
-    width: max-content;
-    gap: 0.9rem;
-    padding-inline: max(1.25rem, calc((100vw - var(--container)) / 2));
-    margin-inline: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: min(100% - 2.5rem, var(--container));
+    margin-inline: auto;
+    gap: 1.35rem;
+    padding-inline: 0;
   }
 
   .gift {
-    flex: 0 0 min(78vw, 300px);
-    scroll-snap-align: start;
-    padding-top: 1rem;
+    flex: none;
+    width: 100%;
+    padding-top: 1.15rem;
   }
 
   .gift__desc {
