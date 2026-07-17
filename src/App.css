@@ -558,15 +558,18 @@
 
 .gift-details__media {
   flex: 0 0 auto;
-  height: 200px;
-  background: var(--bg-panel);
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 28, 46, 0.45);
 }
 
 .gift-details__media img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: min(38vh, 340px);
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
@@ -1235,8 +1238,8 @@
     border-radius: 16px 16px 0 0;
   }
 
-  .gift-details__media {
-    height: 170px;
+  .gift-details__media img {
+    max-height: min(32vh, 260px);
   }
 
   .gift-details__content {
