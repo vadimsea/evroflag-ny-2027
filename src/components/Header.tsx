@@ -43,7 +43,7 @@ export function Header() {
     >
       <div className="container site-header__inner">
         <a className="brand-lockup" href="#top" aria-label="Еврофлаг — наверх">
-          <img src={logoUrl} alt="Еврофлаг" width={148} height={40} />
+          <img src={logoUrl} alt="Еврофлаг" width={190} height={52} />
         </a>
         <nav className="site-nav" aria-label="Разделы страницы">
           {links.map((link) => (
