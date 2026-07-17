@@ -11,12 +11,14 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MobileCta } from "./components/MobileCta";
 import { OrderModal, type OrderRequest } from "./components/OrderModal";
+import { GiftDetailsModal } from "./components/GiftDetailsModal";
 import { formatMoney, type Gift } from "./data";
 import "./App.css";
 
 export default function App() {
   const [request, setRequest] = useState<OrderRequest | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [detailsGift, setDetailsGift] = useState<Gift | null>(null);
 
   useEffect(() => {
     const desktop = window.matchMedia(
@@ -89,7 +91,7 @@ export default function App() {
           }
         />
         <Quiz onOrder={handleOrder} />
-        <Gifts onOrder={handleOrder} />
+        <Gifts onOrder={handleOrder} onDetails={setDetailsGift} />
         <Calculator
           onRequest={({ segment, qty, totalFrom, totalTo }) =>
             openRequest({
@@ -104,6 +106,12 @@ export default function App() {
       </main>
       <Footer />
       <MobileCta />
+      <GiftDetailsModal
+        gift={detailsGift}
+        open={Boolean(detailsGift)}
+        onClose={() => setDetailsGift(null)}
+        onOrder={handleOrder}
+      />
       <OrderModal request={request} open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
