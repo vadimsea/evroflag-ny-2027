@@ -136,7 +136,7 @@ export const contacts = {
   phoneHref: "tel:+74992120132",
   email: "24@evroflag24.ru",
   emailHref: "mailto:24@evroflag24.ru",
-  address: "214000, г. Смоленск, ул. Докучаева, дом 9, офис 1",
+  address: "214000, г. Смоленск, ул. Верхне-Сенная, д. 4, офис 231",
   hours: "пн–пт: 9:00–18:00",
   site: "https://evroflag24.ru/",
   telegram: "https://t.me/evroflag24",
