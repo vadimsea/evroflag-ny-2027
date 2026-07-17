@@ -28,12 +28,12 @@ export function HeroMotion() {
       <svg className="hero-motion__scene" viewBox="0 0 640 520" fill="none">
         <defs>
           <linearGradient id="giftBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2a4668" />
-            <stop offset="100%" stopColor="#132538" />
+            <stop offset="0%" stopColor="#4a658a" />
+            <stop offset="100%" stopColor="#2a3f5c" />
           </linearGradient>
           <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#f0c57a" />
-            <stop offset="100%" stopColor="#de6464" />
+            <stop offset="0%" stopColor="#f5d78a" />
+            <stop offset="100%" stopColor="#e87373" />
           </linearGradient>
           <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="8" result="blur" />
