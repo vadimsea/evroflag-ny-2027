@@ -73,14 +73,46 @@ body::after {
 
 #root {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 #tsparticles {
-  position: fixed !important;
+  display: none !important;
+}
+
+.snow {
+  position: fixed;
   inset: 0;
-  z-index: 1 !important;
+  z-index: 18;
   pointer-events: none;
+  overflow: hidden;
+}
+
+.snow__flake {
+  position: absolute;
+  top: -12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translate3d(0, -5vh, 0);
+  }
+  100% {
+    transform: translate3d(var(--snow-drift, 12px), 105vh, 0);
+  }
+}
+
+@media (max-width: 960px) {
+  .snow__flake:nth-child(n + 26) {
+    display: none;
+  }
 }
 
 img {

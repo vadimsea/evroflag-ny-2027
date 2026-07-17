@@ -1,56 +1,52 @@
-import { useEffect, useMemo, useState } from "react";
-import { Particles, ParticlesProvider } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
-import type { Engine, ISourceOptions } from "@tsparticles/engine";
+import { useMemo } from "react";
 
-async function initParticles(engine: Engine) {
-  await loadSlim(engine);
+type Flake = {
+  id: number;
+  left: string;
+  size: string;
+  duration: string;
+  delay: string;
+  opacity: number;
+  drift: string;
+};
+
+function createFlakes(count: number): Flake[] {
+  return Array.from({ length: count }, (_, id) => {
+    const size = 2 + ((id * 17) % 29) / 10;
+    const direction = id % 2 === 0 ? 1 : -1;
+    const driftAmount = 12 + (id % 18);
+    return {
+      id,
+      left: `${(id * 37) % 100}%`,
+      size: `${size}px`,
+      duration: `${10 + ((id * 13) % 14)}s`,
+      delay: `${-((id * 11) % 16)}s`,
+      opacity: 0.22 + ((id * 7) % 20) / 100,
+      drift: `${direction * driftAmount}px`,
+    };
+  });
 }
 
 export function Snow() {
-  const [particleCount, setParticleCount] = useState(55);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 960px)");
-    const update = () => setParticleCount(mq.matches ? 28 : 55);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  const options = useMemo<ISourceOptions>(
-    () => ({
-      fullScreen: { enable: true, zIndex: 1 },
-      background: { color: { value: "transparent" } },
-      fpsLimit: 45,
-      particles: {
-        number: {
-          value: particleCount,
-          density: { enable: true, width: 1200, height: 800 },
-        },
-        color: { value: "#ffffff" },
-        opacity: {
-          value: { min: 0.18, max: 0.38 },
-        },
-        size: { value: { min: 1, max: 2.8 } },
-        move: {
-          enable: true,
-          direction: "bottom",
-          speed: { min: 0.35, max: 1.1 },
-          straight: false,
-          drift: { min: -0.2, max: 0.2 },
-          outModes: { default: "out" },
-        },
-        shape: { type: "circle" },
-      },
-      detectRetina: true,
-    }),
-    [particleCount],
-  );
+  const flakes = useMemo(() => createFlakes(48), []);
 
   return (
-    <ParticlesProvider init={initParticles}>
-      <Particles id="tsparticles" options={options} />
-    </ParticlesProvider>
+    <div className="snow" aria-hidden="true">
+      {flakes.map((flake) => (
+        <span
+          key={flake.id}
+          className="snow__flake"
+          style={{
+            left: flake.left,
+            width: flake.size,
+            height: flake.size,
+            opacity: flake.opacity,
+            animationDuration: flake.duration,
+            animationDelay: flake.delay,
+            ["--snow-drift" as string]: flake.drift,
+          }}
+        />
+      ))}
+    </div>
   );
 }
